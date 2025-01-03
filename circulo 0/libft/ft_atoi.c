@@ -3,47 +3,41 @@
 
 int ft_atoi(const char *nptr)
 {
-    char *str;
     int i;
     int sign;
-    int rest;
     int result;
+    int rest;
 
-    str = (char *) nptr;
     i = 0;
-    rest = 0;
+    sign = 1;
     result = 0;
-    sign = -1;
-    
-    
-    while (str[i] != '\0')
+	while(nptr[i] == ' ')
+	i++;
+    if (nptr[i] == 45 || nptr[i] == 43)
     {
-        rest =(str[i] - 48);
-        if (str[i] > 47 && str[i] < 58)
-        {
-            result = result * 10 + rest; 
-        }
+        if (nptr[i] == 45)
+            sign = -1;
+        i++;    
+    }
+    while (nptr[i] >= 48 && nptr[i] <= 57)
+    {
+		rest = (nptr[i] - 48);
+        result = result * 10 + rest;
         i++;
     } 
-    i = 0;  
-    while (str[i] != '\0')
-    {
-        if (str[i] == 45 )
-        {
-            return (result * sign);
-        }
-        i++;
-    }
-    return (result);
+    return (result * sign);
 }
 
 int main ()
 {
     printf("%d\n", ft_atoi("123"));
     printf("%d\n", ft_atoi(" -45"));
+    printf("%d\n", ft_atoi("   -45"));
     printf("%d\n", ft_atoi("42abc"));
+    printf("%d\n", ft_atoi("    -ab42abc"));
     printf("%d\n", ft_atoi("abc42"));
-    printf("%d\n", ft_atoi("+987"));
+    printf("%d\n", ft_atoi("+-987"));
+    printf("%d\n", ft_atoi("-987"));
     printf("%d\n", ft_atoi("9999999999"));
     printf("%d\n", ft_atoi("-9999999999"));
     
